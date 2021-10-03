@@ -6,11 +6,11 @@ from utils import conversions as conv
 def read_pair(pair_file_path, line_index=0):
     f = open(pair_file_path)
     line = f.readlines()[line_index].split()
-    rgb_path = 'rgbd_dataset_freiburg2_desk/' + line[1]
-    depth_path = 'rgbd_dataset_freiburg2_desk/' + line[3]
+    rgb_path = 'dataset/' + line[1]
+    depth_path = 'dataset/' + line[3]
     timestamp = line[0]
     image = cv2.imread(rgb_path, cv2.IMREAD_GRAYSCALE).astype('float64') / 255
-    depth = cv2.imread(depth_path, cv2.IMREAD_ANYDEPTH).astype('float64') / 5000
+    depth = cv2.imread(depth_path, cv2.IMREAD_ANYDEPTH).astype('float64') / 50
     return image, depth, timestamp
 
 

@@ -35,6 +35,7 @@ def automatic_loop_closure_detection(pair_path, index_path, spatial_range, relat
 
 
 def automatic_loop_closure_detection_with_trans_dis(index_path, pose_path, pair_path):
+    
     kf_pose = rp.read_absolute_poses(pose_path)
     kf_index = rp.read_pose_index(index_path)
     key_frame_num = len(kf_index)
@@ -47,19 +48,19 @@ def automatic_loop_closure_detection_with_trans_dis(index_path, pose_path, pair_
             ref_frame = kf_index[j]
             cur_frame = kf_index[i]
             trans_dis = np.linalg.norm(first_pose[0:3, 3] - second_pose[0:3, 3])
-            if trans_dis < 0.4:
+            if trans_dis < 0.01:
                 # print('keyframe', ref_frame, cur_frame, trans_dis)
                 loop_closure.append([ref_frame, cur_frame])
 
     # generate loop closure at the end of trajectory to early visited keyframes
     for i in np.arange(160, key_frame_num):
-        for j in range(30):
+        for j in range(10):
             first_pose = kf_pose[j]
             second_pose = kf_pose[i]
             ref_frame = kf_index[j]
             cur_frame = kf_index[i]
             trans_dis = np.linalg.norm(first_pose[0:3, 3] - second_pose[0:3, 3])
-            if trans_dis < 3:
+            if trans_dis < 1:
                 # print('keyframe', ref_frame, cur_frame, trans_dis)
                 loop_closure.append([ref_frame, cur_frame])
 

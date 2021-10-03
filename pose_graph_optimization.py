@@ -5,6 +5,8 @@ from utils import downscale as ds
 from utils import lukas_kanade as lk
 from utils import se3
 import warnings
+import gc
+
 
 warnings.filterwarnings('ignore')
 
@@ -175,7 +177,7 @@ def pgo_with_auto_loop_closure(pair_path=None, absolute_poses=None, kf_index=Non
     sigma_matrix_list = s_m_list
 
     for i in np.arange(pair_num):
-        print(i)
+
         ref_frame = loop_pairs[i][0]
         cur_frame = loop_pairs[i][1]
         first_pose_ind = np.where(kf_index == ref_frame)[0][0]
@@ -217,6 +219,11 @@ def pgo_with_auto_loop_closure(pair_path=None, absolute_poses=None, kf_index=Non
         b_k += jacobian.T @ sigma_matrix @ resid
         h_k += jacobian.T @ sigma_matrix @ jacobian
         # print('keyframes pair:{}'.format(i + 1))
+
+        print(i , np.all(np.linalg.eigvals(h_k) > 0))
+
+        gc.collect()
+
 
     # add another term for first pose in b_k and h_k
     resid_0 = se3.se3Log(absolute_poses[0])
@@ -379,7 +386,7 @@ def optimise_pose_graph_with_auto_loop_closure(pair_path=None, pose_path=None, i
     # errLast = 1e10
     relativ_pose_list = []
     sigma_matrix_list = []
-    lambd = 1e-4
+    lambd = 1e-3
     new_x = x.copy()
 
     for i in range(20):
