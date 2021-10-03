@@ -10,7 +10,7 @@ def read_pair(pair_file_path, line_index=0):
     depth_path = 'dataset/' + line[3]
     timestamp = line[0]
     image = cv2.imread(rgb_path, cv2.IMREAD_GRAYSCALE).astype('float64') / 255
-    depth = cv2.imread(depth_path, cv2.IMREAD_ANYDEPTH).astype('float64') / 50
+    depth = cv2.imread(depth_path, cv2.IMREAD_ANYDEPTH).astype('float64') / 5
     return image, depth, timestamp
 
 
