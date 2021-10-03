@@ -83,7 +83,7 @@ def do_alignment(IRef, DRef, K, I, D, xi, norm_param, use_hubernorm):
         weights[notValid] = 0
 
         hessian_m = Jac.T @ (np.tile(weights, (1, 6)) * Jac)
-        upd = - np.linalg.inv(hessian_m) @ Jac.T @ (weights * residual)
+        upd = - np.linalg.pinv(hessian_m) @ Jac.T @ (weights * residual)
         xi = se3.se3Log(se3.se3Exp(upd) @ se3.se3Exp(xi_new))
         err = np.mean(residual ** 2)
         # print('step:', j, 'err:', err, 't', xi)

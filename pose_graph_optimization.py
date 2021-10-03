@@ -175,6 +175,7 @@ def pgo_with_auto_loop_closure(pair_path=None, absolute_poses=None, kf_index=Non
     sigma_matrix_list = s_m_list
 
     for i in np.arange(pair_num):
+        print(i)
         ref_frame = loop_pairs[i][0]
         cur_frame = loop_pairs[i][1]
         first_pose_ind = np.where(kf_index == ref_frame)[0][0]
@@ -185,7 +186,7 @@ def pgo_with_auto_loop_closure(pair_path=None, absolute_poses=None, kf_index=Non
         image2, depth2, _ = rp.read_pair(pair_path, cur_frame)
 
         # calculate the pose difference between keyframes pair
-        pose_diff = np.linalg.inv(second_pose) @ first_pose
+        pose_diff = np.linalg.inv(second_pose) @ first_pose 
 
         # create relative pose constraint between keyframes pair through direct image alignment in the first pgo iter
         if len(relative_pose_list) < i + 1:

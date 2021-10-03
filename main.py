@@ -9,9 +9,9 @@ if __name__ == '__main__':
     )
     parser.add_argument('--tracking', type=int, default=0, help='run keyframe-based camera tracking algorithm')
     parser.add_argument('--keyframe_selection', type=int, default=0, help='choose keyframe selection strategy')
-    parser.add_argument('--pgo', type=int, default=0,
+    parser.add_argument('--pgo', type=int, default=1,
                         help='run pose-graph optimization algorithm for the keyframe poses')
-    parser.add_argument('--loop_closure', type=int, default=0, help='adding loop closure manually or automatically')
+    parser.add_argument('--loop_closure', type=int, default=1, help='adding loop closure manually or automatically')
     args = parser.parse_args()
 
     pair_file_path = 'pairs_list.txt'  # RGB-D frame pairs

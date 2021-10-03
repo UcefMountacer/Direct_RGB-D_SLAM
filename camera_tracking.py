@@ -33,14 +33,14 @@ def camera_tracking_with_rot_and_trans_thresh(pair_file_path=None, level=4, rot_
         file_handle.write('\n')
 
     # camera calibration matrix
-    fx = 520.9  # focal length x
-    fy = 521.0  # focal length y
-    cx = 325.1  # optical center x
-    cy = 249.7  # optical center y
+    fx = 1443.4036  # focal length x
+    fy = 1443.4036  # focal length y
+    cx = 926.02795  # optical center x
+    cy = 725.01117  # optical center y
     K = np.array([[fx, 0, cx], [0, fy, cy], [0, 0, 1]])
 
-    cv2.imshow('original_image', image)
-    cv2.imshow('original_depth', depth)
+    # cv2.imshow('original_image', image)
+    # cv2.imshow('original_depth', depth)
 
     # perform level times down_sampling and display the downscaled image
     Id = image
@@ -48,10 +48,10 @@ def camera_tracking_with_rot_and_trans_thresh(pair_file_path=None, level=4, rot_
     Kd = K
     for i in range(level):
         Id, Dd, Kd = ds.downscale(Id, Dd, Kd)
-    cv2.imshow('Id', Id)
-    cv2.imshow('Dd', Dd)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    # cv2.imshow('Id', Id)
+    # cv2.imshow('Dd', Dd)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
 
     # set the first key frame
     Iref = Id
